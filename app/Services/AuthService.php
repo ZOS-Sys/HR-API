@@ -42,7 +42,7 @@ class AuthService
      */
     public function login(array $credentials): ?string
     {
-        // Attempt to authenticate the admin using the 'admin' guard
+        // Attempt to authenticate user using api guard
         if (!$token = Auth::guard('api')->attempt($credentials)) {
             return null; // Authentication failed
         }
