@@ -24,6 +24,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();
             $table->tinyInteger('marital_status')->nullable()->comment('0 = single , 1 = married , 2 = divorced , 3 = widowed');
+            $table->tinyInteger('type')->nullable()->comment('0 = admin , 1 = user');
             $table->tinyInteger('gender')->nullable()->comment('0 = female , 1 = male');
             $table->rememberToken();
             $table->timestamps();
