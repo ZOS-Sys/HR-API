@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserIdentityController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -22,4 +23,5 @@ Route::group([
    // Route users
     Route::group(['middleware' => 'auth:api'], function () {
        Route::apiResource('users', UserController::class);
+        Route::apiResource('user-identities', UserIdentityController::class);
     });
