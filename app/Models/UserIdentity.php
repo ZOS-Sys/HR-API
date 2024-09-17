@@ -10,5 +10,11 @@ class UserIdentity extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $table ='user_identities';
     protected $guarded = ['id'];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
