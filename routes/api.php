@@ -1,8 +1,6 @@
 <?php
 
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\UserIdentityController;
+use App\Http\Controllers\{AuthController,UserController,UserIdentityController,UserJobController};
 use Illuminate\Support\Facades\Route;
 
 
@@ -22,6 +20,7 @@ Route::group([
 });
    // Route users
     Route::group(['middleware' => 'auth:api'], function () {
-       Route::apiResource('users', UserController::class);
+        Route::apiResource('users', UserController::class);
         Route::apiResource('user-identities', UserIdentityController::class);
+        Route::apiResource('user-jobs', UserJobController::class);
     });

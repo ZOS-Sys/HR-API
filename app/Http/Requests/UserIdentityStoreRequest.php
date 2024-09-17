@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UserIdentityStoreRequest extends FormRequest
 {
@@ -14,7 +15,7 @@ class UserIdentityStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_id' => 'nullable|exists:users,id',
+            'user_id'=>['required' ,'exists:users,id',Rule::unique('user_jobs')->whereNull('deleted_at')],
             'identity_type' => 'nullable|in:0,1',
             'identity_num' => 'nullable|string|max:255',
             'identity_start' => 'nullable|date',
