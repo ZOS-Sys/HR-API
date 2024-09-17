@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\User;
 
-use App\Http\Resources\UserJobResource;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\User\UserJobResource;
 use App\Services\UserJobService;
-use App\Http\Requests\UserJobStoreRequest;
-use App\Http\Requests\UserJobUpdateRequest;
+use App\Http\Requests\User\UserJobStoreRequest;
+use App\Http\Requests\User\UserJobUpdateRequest;
 use Illuminate\Http\JsonResponse;
 use App\Traits\ApiResponse;
 

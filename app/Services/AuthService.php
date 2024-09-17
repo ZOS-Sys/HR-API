@@ -3,9 +3,8 @@
 namespace App\Services;
 
 use App\Models\User;
-use App\Repositories\AuthRepository;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Auth;
+use App\Repositories\Auth\AuthRepository;
+use Illuminate\Support\Facades\{Hash,Auth};
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthService

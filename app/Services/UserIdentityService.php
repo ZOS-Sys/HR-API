@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\Models\UserIdentity;
-use App\Repositories\UserIdentityRepository;
+use App\Repositories\User\UserIdentityRepository;
 
 class UserIdentityService
 {

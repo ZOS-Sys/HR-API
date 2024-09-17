@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\User;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserUpdateRequest extends FormRequest
+class UserStoreRequest extends FormRequest
 {
     public function authorize(): bool
     {
@@ -17,17 +17,18 @@ class UserUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'first_name_en' => 'sometimes|string|max:255',
+            'first_name_en' => 'required|string|max:255',
             'first_name_ar' => 'nullable|string|max:255',
-            'last_name_en' => 'sometimes|string|max:255',
+            'last_name_en' => 'required|string|max:255',
             'last_name_ar' => 'nullable|string|max:255',
-            'email' => 'sometimes|email|unique:users,email,' . $this->route('user'),
+            'email' => 'required|email|unique:users,email',
             'phone' => 'nullable|string|max:20',
             'nationality' => 'nullable|string|max:100',
             'date_of_birth' => 'nullable|date',
             'marital_status' => 'nullable|in:0,1,2,3',
             'type' => 'nullable|in:1,2',
             'gender' => 'nullable|in:0,1',
+            'password' => 'required|string|min:6',
         ];
     }
 
@@ -36,7 +37,9 @@ class UserUpdateRequest extends FormRequest
         return [
             'first_name_en.required' => 'First Name (English) is required.',
             'last_name_en.required' => 'Last Name (English) is required.',
+            'email.required' => 'Email is required.',
             'email.unique' => 'This email is already registered.',
+            'password.required' => 'Password is required.',
         ];
     }
 }

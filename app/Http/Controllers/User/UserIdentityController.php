@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\User;
 
-use App\Http\Resources\UserIdentityResource;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\User\UserIdentityResource;
 use App\Services\UserIdentityService;
-use App\Http\Requests\UserIdentityStoreRequest;
-use App\Http\Requests\UserIdentityUpdateRequest;
+use App\Http\Requests\User\UserIdentityStoreRequest;
+use App\Http\Requests\User\UserIdentityUpdateRequest;
 use Illuminate\Http\JsonResponse;
 use App\Traits\ApiResponse;
 

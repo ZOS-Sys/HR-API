@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\Models\UserIdentity;
-use App\Repositories\UserJobRepository;
+use App\Repositories\User\UserJobRepository;
 
 class UserJobService
 {
