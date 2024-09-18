@@ -14,4 +14,17 @@ class Country extends Model
     protected $guarded = ['id'];
 
     public $translatable = ['title'];
+
+    public function cities()
+    {
+        return $this->hasMany(City::class);
+    }
+
+    public static function boot()
+    {
+        parent::boot();
+        static::deleting(function($data){
+            $data->cities->each->delete();
+        });
+    }
 }

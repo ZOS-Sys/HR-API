@@ -14,4 +14,9 @@ class City extends Model
     protected $guarded = ['id'];
 
     public $translatable = ['title'];
+
+    public function country()
+    {
+        return $this->belongsTo(Country::class);
+    }
 }

@@ -1,12 +1,8 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
-use App\Http\Controllers\User\{FollowerController,
-    FollowerIdentityController,
-    UserContractController,
-    UserController,
-    UserIdentityController,
-    UserJobController};
+use App\Http\Controllers\User\{UserContractController, UserController, UserIdentityController, UserJobController};
+use App\Http\Controllers\Shared\{CompanyController,BranchController,CountryController,CityController};
 use Illuminate\Support\Facades\Route;
 
 
@@ -26,15 +22,19 @@ Route::group([
 });
    // Route users
     Route::group(['middleware' => 'auth:api'], function () {
+        // user
         Route::apiResource('users', UserController::class);
         Route::apiResource('user-identities', UserIdentityController::class);
         Route::apiResource('user-jobs', UserJobController::class);
-        Route::apiResource('user-contracts', UserContractController::class)
-            ->except(['update']);
-        Route::post('user-contracts/{userId}', [UserContractController::class, 'update'])
-            ->name('user-contracts.update');
+        Route::apiResource('user-contracts', UserContractController::class);
 
-        Route::apiResource('followers', FollowerController::class);
+        // company
+        Route::apiResource('companies', CompanyController::class);
+        // branch
+        Route::apiResource('branches', BranchController::class);
+        // country
+        Route::apiResource('countries', CountryController::class);
+        // city
+        Route::apiResource('cities', CityController::class);
 
-        Route::apiResource('follower-identities', FollowerIdentityController::class);
     });
