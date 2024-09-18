@@ -15,4 +15,9 @@ class UserContract extends Model
     protected $guarded = ['id'];
 
     public $translatable = ['name'];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
