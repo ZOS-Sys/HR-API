@@ -14,4 +14,9 @@ class Branch extends Model
     protected $guarded = ['id'];
 
     public $translatable = ['name'];
+
+    public function company()
+    {
+        return $this->belongsTo(Company::class);
+    }
 }

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\User\{UserContractController, UserController, UserIdentityController, UserJobController};
+use App\Http\Controllers\Shared\{CompanyController,BranchController,CountryController,CityController};
 use Illuminate\Support\Facades\Route;
 
 
@@ -21,9 +22,19 @@ Route::group([
 });
    // Route users
     Route::group(['middleware' => 'auth:api'], function () {
+        // user
         Route::apiResource('users', UserController::class);
         Route::apiResource('user-identities', UserIdentityController::class);
         Route::apiResource('user-jobs', UserJobController::class);
         Route::apiResource('user-contracts', UserContractController::class);
+
+        // company
+        Route::apiResource('companies', CompanyController::class);
+        // branch
+        Route::apiResource('branches', BranchController::class);
+        // country
+        Route::apiResource('countries', CountryController::class);
+        // city
+        Route::apiResource('cities', CityController::class);
 
     });

@@ -4,8 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Helpers\HandleUpload;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\UserContractStoreRequest;
-use App\Http\Requests\UserContractUpdateRequest;
+use App\Http\Requests\User\{UserContractStoreRequest,UserContractUpdateRequest};
 use App\Http\Resources\User\UserContractResource;
 use App\Services\UserContractService;
 use Illuminate\Http\JsonResponse;
@@ -78,6 +77,9 @@ class UserContractController extends Controller
 
         // Get the existing contract from User to get the old file path
         $existingContract = $this->userContractService->getUserContractByUserId($id);
+        if (!$existingContract) {
+            return $this->errorResponse('User contract not found', 404); // Return error if not found
+        }
 
         // Check if a new file has been uploaded in the request
         if ($request->hasFile('file')) {
