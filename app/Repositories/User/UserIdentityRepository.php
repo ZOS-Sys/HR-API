@@ -46,7 +46,7 @@ class UserIdentityRepository
      */
     public function updateUserIdentity($id, array $data)
     {
-        // Find the user identity by ID
+        // Find the user identity by User ID
         $userIdentity = $this->findUserIdentityByUserId($id);
         if ($userIdentity) {
             // If the user identity exists, update it with the provided data
@@ -64,7 +64,7 @@ class UserIdentityRepository
      */
     public function deleteUserIdentity($id)
     {
-        // Find the user identity by ID
+        // Find the user identity by User ID
         $userIdentity = $this->findUserIdentityByUserId($id);
         if ($userIdentity) {
             // If found, delete the user identity and return true
