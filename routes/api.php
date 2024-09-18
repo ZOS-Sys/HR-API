@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
-use App\Http\Controllers\User\{UserController,UserIdentityController,UserJobController};
+use App\Http\Controllers\User\{UserContractController, UserController, UserIdentityController, UserJobController};
 use Illuminate\Support\Facades\Route;
 
 
@@ -24,4 +24,6 @@ Route::group([
         Route::apiResource('users', UserController::class);
         Route::apiResource('user-identities', UserIdentityController::class);
         Route::apiResource('user-jobs', UserJobController::class);
+        Route::apiResource('user-contracts', UserContractController::class);
+
     });

@@ -11,6 +11,7 @@ class UserContract extends Model
 {
     use HasFactory, HasTranslations, SoftDeletes;
 
+    protected $table = 'user_contracts';
     protected $guarded = ['id'];
 
     public $translatable = ['name'];
