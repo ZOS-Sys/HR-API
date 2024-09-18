@@ -4,8 +4,8 @@ namespace App\Http\Controllers\User;
 
 use App\Helpers\HandleUpload;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\UserContractStoreRequest;
-use App\Http\Requests\UserContractUpdateRequest;
+use App\Http\Requests\User\UserContractStoreRequest;
+use App\Http\Requests\User\UserContractUpdateRequest;
 use App\Http\Resources\User\UserContractResource;
 use App\Services\UserContractService;
 use Illuminate\Http\JsonResponse;
@@ -57,6 +57,8 @@ class UserContractController extends Controller
         if ($request->hasFile('file')) {
             $data['file'] = HandleUpload::uploadFile($request->file('file'), 'contracts');
         }
+        // Handle Translatable Data
+        $data['name'] = ['en' => $data['name_en'], 'ar' => $data['name_ar'] ?? null];
 
         // Create the new user contract
         $userContract = $this->userContractService->createUserContract($data);
@@ -87,6 +89,9 @@ class UserContractController extends Controller
             // If no new file is uploaded, retain the old file path
             $data['file'] = $existingContract->file;
         }
+
+        // Handle Translatable Data
+        $data['name'] = ['en' => $data['name_en'], 'ar' => $data['name_ar'] ?? null];
 
         // Update the existing contract with the new or retained data
         $userContract = $this->userContractService->updateUserContract($id, $data);

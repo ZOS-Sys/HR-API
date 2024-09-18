@@ -7,13 +7,14 @@ use App\Http\Resources\Auth\UserResource;
 use App\Services\UserService;
 use App\Http\Requests\User\UserStoreRequest;
 use App\Http\Requests\User\UserUpdateRequest;
+use App\Traits\TranslatableTrait;
 use Illuminate\Http\JsonResponse;
 use App\Traits\ApiResponse;
 
 class UserController extends Controller
 {
     use ApiResponse;
-
+    use TranslatableTrait;
     protected UserService $userService;
 
     // Inject the UserService
@@ -56,15 +57,9 @@ class UserController extends Controller
         $data = $request->all();
 
         // Handle Translatable Data
-        $data['first_name'] = ['en' => $data['first_name_en'], 'ar' => $data['first_name_ar'] ?? null];
-        $data['last_name'] = ['en' => $data['last_name_en'], 'ar' => $data['last_name_ar'] ?? null];
-
-        if (isset($data['middle_name_en']) || isset($data['middle_name_ar'])) {
-            $data['middle_name'] = [
-                'en' => $data['middle_name_en'] ?? null,
-                'ar' => $data['middle_name_ar'] ?? null,
-            ];
-        }
+        $data['first_name'] = $this->handleTranslatableData($data, 'first_name');
+        $data['middle_name'] = $this->handleTranslatableData($data, 'middle_name');
+        $data['last_name'] = $this->handleTranslatableData($data, 'last_name');
 
         // Hash the password
         $data['password'] = bcrypt($data['password']);
@@ -81,20 +76,9 @@ class UserController extends Controller
         $data = $request->all();
 
         // Handle Translatable Data
-        if (isset($data['first_name_en']) || isset($data['first_name_ar'])) {
-            $data['first_name'] = ['en' => $data['first_name_en'] ?? null, 'ar' => $data['first_name_ar'] ?? null];
-        }
-
-        if (isset($data['last_name_en']) || isset($data['last_name_ar'])) {
-            $data['last_name'] = ['en' => $data['last_name_en'] ?? null, 'ar' => $data['last_name_ar'] ?? null];
-        }
-
-        if (isset($data['middle_name_en']) || isset($data['middle_name_ar'])) {
-            $data['middle_name'] = [
-                'en' => $data['middle_name_en'] ?? null,
-                'ar' => $data['middle_name_ar'] ?? null,
-            ];
-        }
+        $data['first_name'] = $this->handleTranslatableData($data, 'first_name');
+        $data['middle_name'] = $this->handleTranslatableData($data, 'middle_name');
+        $data['last_name'] = $this->handleTranslatableData($data, 'last_name');
 
         $user = $this->userService->updateUser($id, $data);
         if (!$user) {

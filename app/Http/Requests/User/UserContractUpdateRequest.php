@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\User;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -16,8 +16,9 @@ class UserContractUpdateRequest extends FormRequest
     {
         return [
             'user_id' => 'nullable|exists:users,id',
-            'name' => 'nullable|array',
-            'file' => 'nullable|string',
+            'name_en' => 'nullable|string|max:255',
+            'name_ar' => 'nullable|string|max:255',
+            'file' => 'nullable|mimes:jpg,jpeg,png,pdf,doc,docx',
             'joining_date' => 'nullable|date',
             'period' => 'nullable|string',
         ];
@@ -28,7 +29,8 @@ class UserContractUpdateRequest extends FormRequest
     {
         return [
             'user_id.exists' => 'User ID must be a valid user.',
-            'name.array' => 'Name must be a valid array.',
+            'name_en' => 'English Name must be a valid String.',
+            'name_ar' => 'Arabic Name must be a valid String.',
             'joining_date.date' => 'Joining date must be a valid date.',
             'period.string' => 'Contract period must be a string.',
         ];

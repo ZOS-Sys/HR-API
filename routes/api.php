@@ -1,7 +1,12 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
-use App\Http\Controllers\User\{UserContractController, UserController, UserIdentityController, UserJobController};
+use App\Http\Controllers\User\{FollowerController,
+    FollowerIdentityController,
+    UserContractController,
+    UserController,
+    UserIdentityController,
+    UserJobController};
 use Illuminate\Support\Facades\Route;
 
 
@@ -24,6 +29,12 @@ Route::group([
         Route::apiResource('users', UserController::class);
         Route::apiResource('user-identities', UserIdentityController::class);
         Route::apiResource('user-jobs', UserJobController::class);
-        Route::apiResource('user-contracts', UserContractController::class);
+        Route::apiResource('user-contracts', UserContractController::class)
+            ->except(['update']);
+        Route::post('user-contracts/{userId}', [UserContractController::class, 'update'])
+            ->name('user-contracts.update');
 
+        Route::apiResource('followers', FollowerController::class);
+
+        Route::apiResource('follower-identities', FollowerIdentityController::class);
     });
