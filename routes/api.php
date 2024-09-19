@@ -1,13 +1,20 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
-use App\Http\Controllers\User\{FollowerController,
+use App\Http\Controllers\User\{AllowanceController,
+    BankAccountController,
+    FollowerController,
     FollowerIdentityController,
+    SalaryController,
     UserContractController,
     UserController,
     UserIdentityController,
     UserJobController};
-use App\Http\Controllers\Shared\{CompanyController,BranchController,CountryController,CityController};
+use App\Http\Controllers\Shared\{CompanyController,
+    BranchController,
+    CountryController,
+    CityController,
+    CurrencyController};
 use Illuminate\Support\Facades\Route;
 
 
@@ -45,5 +52,13 @@ Route::group([
         Route::apiResource('followers', FollowerController::class);
         // follower-identities
         Route::apiResource('follower-identities', FollowerIdentityController::class);
+        // Currency
+        Route::apiResource('currencies', CurrencyController::class);
+        // Allowances
+        Route::apiResource('allowances', AllowanceController::class);
+        // salaries
+        Route::apiResource('salaries', SalaryController::class);
+        // bank-accounts
+        Route::apiResource('bank-accounts', BankAccountController::class);
 
     });

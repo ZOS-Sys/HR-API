@@ -14,4 +14,12 @@ class BankAccount extends Model
     protected $guarded = ['id'];
 
     public $translatable = ['name'];
+
+    /**
+     * Define the relationship with the User model.
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
