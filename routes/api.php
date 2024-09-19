@@ -1,7 +1,12 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
-use App\Http\Controllers\User\{UserContractController, UserController, UserIdentityController, UserJobController};
+use App\Http\Controllers\User\{FollowerController,
+    FollowerIdentityController,
+    UserContractController,
+    UserController,
+    UserIdentityController,
+    UserJobController};
 use App\Http\Controllers\Shared\{CompanyController,BranchController,CountryController,CityController};
 use Illuminate\Support\Facades\Route;
 
@@ -36,5 +41,9 @@ Route::group([
         Route::apiResource('countries', CountryController::class);
         // city
         Route::apiResource('cities', CityController::class);
+        // followers
+        Route::apiResource('followers', FollowerController::class);
+        // follower-identities
+        Route::apiResource('follower-identities', FollowerIdentityController::class);
 
     });
