@@ -27,18 +27,6 @@ class Follower extends Model
 
         return $relationships[$this->relationship] ?? '';
     }
-    // Handle Trans Data
-    private function handleTranslatableData(array $data, string $field): array
-    {
-        if (isset($data["{$field}_en"]) || isset($data["{$field}_ar"])) {
-            return [
-                'en' => $data["{$field}_en"] ?? null,
-                'ar' => $data["{$field}_ar"] ?? null,
-            ];
-        }
-
-        return $data[$field] ?? [];
-    }
     // Relation with User
     public function user()
     {
