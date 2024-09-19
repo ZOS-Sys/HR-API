@@ -9,7 +9,7 @@ use App\Http\Controllers\User\{AllowanceController,
     UserContractController,
     UserController,
     UserIdentityController,
-    UserJobController};
+    UserJobController,UserEmergencyController,UserDocumentController,UserFileController,UserNoteController};
 use App\Http\Controllers\Shared\{CompanyController,
     BranchController,
     CountryController,
@@ -39,6 +39,10 @@ Route::group([
         Route::apiResource('user-identities', UserIdentityController::class);
         Route::apiResource('user-jobs', UserJobController::class);
         Route::apiResource('user-contracts', UserContractController::class);
+        Route::apiResource('user-emergencies', UserEmergencyController::class);
+        Route::apiResource('user-documents', UserDocumentController::class);
+        Route::apiResource('user-files', UserFileController::class);
+        Route::apiResource('user-notes', UserNoteController::class);
 
         // company
         Route::apiResource('companies', CompanyController::class);

@@ -14,4 +14,9 @@ class Note extends Model
     protected $guarded = ['id'];
 
     public $translatable = ['note'];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

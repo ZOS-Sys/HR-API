@@ -14,4 +14,9 @@ class Emergency extends Model
     protected $guarded = ['id'];
 
     public $translatable = ['first_name', 'middle_name', 'last_name'];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

@@ -14,4 +14,9 @@ class File extends Model
     protected $guarded = ['id'];
 
     public $translatable = ['address'];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
