@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Models\Emergrncy;
+use App\Models\Emergency;
 use App\Repositories\User\UserEmergencyRepository;
 
 class UserEmergencyService
@@ -25,39 +25,39 @@ class UserEmergencyService
     }
 
     /**
-     * Create a new emergrncy
+     * Create a new emergency
      *
      * @param array $data
-     * @return Emergrncy
+     * @return Emergency
      */
-    public function createEmergrncy(array $data)
+    public function createEmergency(array $data)
     {
-        // Create a new emergrncy  through the repository
-        return $this->userEmergencyRepository->createEmergrncy($data);
+        // Create a new emergency  through the repository
+        return $this->userEmergencyRepository->createEmergency($data);
     }
 
     /**
-     * Update an existing emergrncy
+     * Update an existing emergency
      *
      * @param int $id
      * @param array $data
-     * @return Emergrncy|null
+     * @return Emergency|null
      */
-    public function updateEmergrncy($id, array $data)
+    public function updateEmergency($id, array $data)
     {
-        // Update the emergrncy by id through the repository
-        return $this->userEmergencyRepository->updateEmergrncy($id, $data);
+        // Update the emergency by id through the repository
+        return $this->userEmergencyRepository->updateEmergency($id, $data);
     }
 
     /**
-     * Delete an emergrncy
+     * Delete an emergency
      *
      * @param int $id
      * @return bool
      */
-    public function deleteEmergrncy($id)
+    public function deleteEmergency($id)
     {
-        // Delete the emergrncy by id through the repository
-        return $this->userEmergencyRepository->deleteEmergrncy($id);
+        // Delete the emergency by id through the repository
+        return $this->userEmergencyRepository->deleteEmergency($id);
     }
 }

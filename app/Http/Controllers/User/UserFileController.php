@@ -36,7 +36,7 @@ class UserFileController extends Controller
         $perPage = request()->get('per_page', 10); // Default value is 10
 
        // Retrieve documents with pagination
-        $files = $this->userDocumentService->getAllFiles($userId,$perPage);
+        $files = $this->userFileService->getAllFiles($userId,$perPage);
 
         return $this->successResponse(FileResource::collection($files), 'Files retrieved successfully');
     }

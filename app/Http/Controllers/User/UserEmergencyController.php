@@ -17,7 +17,7 @@ class UserEmergencyController extends Controller
     protected UserEmergencyService $userEmergencyService;
     protected Emergency $emergency;
 
-    public function __construct(UserEmergencyService $userEmergencyService , Emergency $follower)
+    public function __construct(UserEmergencyService $userEmergencyService , Emergency $emergency)
     {
         $this->userEmergencyService = $userEmergencyService;
         $this->emergency = $emergency;
