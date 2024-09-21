@@ -36,6 +36,10 @@ Route::group([
     Route::group(['middleware' => 'auth:api'], function () {
         // user
         Route::apiResource('users', UserController::class);
+        Route::get('users-level-one',[UserController::class,'levelOne']);
+        Route::get('users-level-one-and-two',[UserController::class,'levelOneAndTwo']);
+        Route::get('users/{user_id}/subordinates',[UserController::class,'subordinates']);
+        Route::post('users/{user_id}/subordinates',[UserController::class,'addSubordinate']);
         Route::apiResource('user-identities', UserIdentityController::class);
         Route::apiResource('user-jobs', UserJobController::class);
         Route::apiResource('user-contracts', UserContractController::class);

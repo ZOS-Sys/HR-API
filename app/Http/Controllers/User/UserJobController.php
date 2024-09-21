@@ -9,6 +9,7 @@ use App\Http\Requests\User\UserJobStoreRequest;
 use App\Http\Requests\User\UserJobUpdateRequest;
 use Illuminate\Http\JsonResponse;
 use App\Traits\ApiResponse;
+use App\Models\UserJob;
 
 class UserJobController extends Controller
 {
@@ -53,6 +54,18 @@ class UserJobController extends Controller
         // Get validated data from the request
         $data = $request->validated();
 
+        // check for direct manager
+        $data['direct_manager'] = $data['job_level'] == 1 ? NULL : $data['direct_manager'];
+        if($data['direct_manager'])
+        {
+            $level = $data['job_level'] == 2 ? [1] : [1,2];
+            $managerLevel = UserJob::where('user_id',$data['direct_manager'])->first()?->job_level;
+            if(!in_array($managerLevel,$level))
+            {
+                return $this->errorResponse('direct manager not found', 404);
+            }
+        }
+
         // Create a new user job
         $userJob = $this->userJobService->createUserJob($data);
 
@@ -71,6 +84,18 @@ class UserJobController extends Controller
     {
         $data = $request->validated();
 
+        // check for direct manager
+        $data['direct_manager'] = $data['job_level'] == 1 ? NULL : $data['direct_manager'];
+        if($data['direct_manager'])
+        {
+            $level = $data['job_level'] == 2 ? [1] : [1,2];
+            $managerLevel = UserJob::where('user_id',$data['direct_manager'])->first()?->job_level;
+            if(!in_array($managerLevel,$level))
+            {
+                return $this->errorResponse('direct manager not found', 404);
+            }
+        }
+        
         // Update the user job based on ID
         $userJob = $this->userJobService->updateUserJob($id, $data);
 

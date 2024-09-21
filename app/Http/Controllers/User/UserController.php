@@ -5,8 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Auth\UserResource;
 use App\Services\UserService;
-use App\Http\Requests\User\UserStoreRequest;
-use App\Http\Requests\User\UserUpdateRequest;
+use App\Http\Requests\User\{UserStoreRequest,UserUpdateRequest,SubordinateRequest};
 use App\Traits\TranslatableTrait;
 use Illuminate\Http\JsonResponse;
 use App\Traits\ApiResponse;
@@ -35,6 +34,65 @@ class UserController extends Controller
         $users = $this->userService->getAllUsers($perPage);
 
         return $this->successResponse(UserResource::collection($users), 'Users retrieved successfully');
+    }
+
+
+    /*
+     * Get users where level equal one
+     */
+    public function levelOne(): JsonResponse
+    {
+        // Define the number of items per page
+        $perPage = request()->get('per_page', 10); // Default value is 10
+
+        // Retrieve users with pagination
+        $users = $this->userService->levelOne($perPage);
+
+        return $this->successResponse(UserResource::collection($users), 'Level one users retrieved successfully');
+    }
+
+    /*
+     * Get users where level equal one
+     */
+    public function levelOneAndTwo(): JsonResponse
+    {
+        // Define the number of items per page
+        $perPage = request()->get('per_page', 10); // Default value is 10
+
+        // Retrieve users with pagination
+        $users = $this->userService->levelOneAndTwo($perPage);
+
+        return $this->successResponse(UserResource::collection($users), 'Users where Level equal one or two retrieved successfully');
+    }
+
+    /*
+     * Get subordinates by userId
+     */
+    public function subordinates($userId): JsonResponse
+    {
+        // Define the number of items per page
+        $perPage = request()->get('per_page', 10); // Default value is 10
+
+        // Retrieve subordinates with pagination
+        $subordinates = $this->userService->subordinates($userId,$perPage);
+
+        return $this->successResponse(UserResource::collection($subordinates), 'Subordinatess retrieved successfully!');
+    }
+
+    /*
+     * add subordinate for user
+     */
+    public function addSubordinate(SubordinateRequest $request, $userId): JsonResponse
+    {
+        $data = $request->validated();
+
+        // add new subordinate
+        $user = $this->userService->addSubordinate($userId,$data);
+        if (!$user) {
+            return $this->errorResponse('Subordinate not found', 404);
+        }
+
+        return $this->successResponse(UserResource::make($user),'Subordinate added successfully!');
     }
 
     /*
