@@ -34,15 +34,15 @@ class FollowerController extends Controller
     public function show($userId): JsonResponse
     {
         // Get follower by user_id
-        $follower = $this->followerService->getFollowerByUserId($userId);
+        $followers = $this->followerService->getFollowerByUserId($userId);
 
         // Check if follower is not found
-        if (!$follower) {
+        if (!$followers) {
             return $this->errorResponse('Follower not found', 404);
         }
 
         // Return success response with follower data
-        return $this->successResponse(new FollowerResource($follower), 'Follower retrieved successfully');
+        return $this->successResponse(FollowerResource::collection($followers), 'Follower retrieved successfully');
     }
 
     /**

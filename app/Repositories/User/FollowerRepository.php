@@ -24,7 +24,7 @@ class FollowerRepository
     public function findFollowerByUserId($userId)
     {
         // Get the follower using the user_id and load related user data
-        return $this->follower->with('user')->where('user_id', $userId)->first();
+        return $this->follower->with('user')->where('user_id', $userId)->get();
     }
 
     /**

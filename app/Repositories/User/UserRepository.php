@@ -48,7 +48,9 @@ class UserRepository
     // add new subordinate for user and retrieve his subordinates
     public function addSubordinate($userId, array $data)
     {
+
         $user = $this->findUserById($userId);
+
         $subordinate = UserJob::where('user_id',$data['user_id'])->first();
         if ($user && $subordinate && $userId != $data['user_id']) {
             $subordinateLevel = $subordinate?->job_level;
@@ -56,10 +58,12 @@ class UserRepository
 
             if((int)$subordinateLevel < (int)$userLevel)
             {
+
                 $subordinate->update(['direct_manager'=>$userId]);
                 return $user;
             }
         }
+
         return NULL;
     }
 

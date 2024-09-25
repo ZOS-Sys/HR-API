@@ -88,6 +88,7 @@ class UserController extends Controller
 
         // add new subordinate
         $user = $this->userService->addSubordinate($userId,$data);
+
         if (!$user) {
             return $this->errorResponse('Subordinate not found', 404);
         }
