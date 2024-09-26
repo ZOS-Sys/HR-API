@@ -18,7 +18,7 @@ class FileResource extends JsonResource
         return [
             'id' => $this->id,
             'user_id' => $this->user_id,
-            'address' => $this->getTranslation('address', 'en'),
+            'address_en' => $this->getTranslation('address', 'en'),
             'address_ar' => $this->getTranslation('address', 'ar'),
             'file' => $this->file ? Storage::disk('public')->url($this->file) : null,
             'created_at' => $this->created_at->format('Y-m-d H:i:s'),

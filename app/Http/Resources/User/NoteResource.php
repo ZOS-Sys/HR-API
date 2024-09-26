@@ -17,7 +17,7 @@ class NoteResource extends JsonResource
         return [
             'id' => $this->id,
             'user_id' => $this->user_id,
-            'note' => $this->getTranslation('note', 'en'),
+            'note_en' => $this->getTranslation('note', 'en'),
             'note_ar' => $this->getTranslation('note', 'ar'),
             'created_at' => $this->created_at->format('Y-m-d H:i:s'),
             'updated_at' => $this->updated_at->format('Y-m-d H:i:s'),

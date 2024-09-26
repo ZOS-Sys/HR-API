@@ -10,7 +10,7 @@ class CurrencyResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->getTranslation('name', 'en'),
+            'name_en' => $this->getTranslation('name', 'en'),
             'name_ar' => $this->getTranslation('name', 'ar'),
             'symbol' => $this->symbol,
             'created_at' => $this->created_at,

@@ -13,7 +13,7 @@ class BankAccountResource extends JsonResource
             'id' => $this->id,
             'user_id' => $this->user_id,
             'user' => new UserResource($this->whenLoaded('user')),
-            'name' => $this->getTranslation('name', 'en'),
+            'name_en' => $this->getTranslation('name', 'en'),
             'name_ar' => $this->getTranslation('name', 'ar'),
             'iban' => $this->iban,
             'created_at' => $this->created_at,
