@@ -77,7 +77,6 @@ class FollowerController extends Controller
     public function update(FollowerUpdateRequest $request, $id): JsonResponse
     {
         $data = $request->all();
-
         // Handle Translatable Data
         $data['first_name'] = $this->handleTranslatableData($data, 'first_name');
         $data['middle_name'] = $this->handleTranslatableData($data, 'middle_name');
