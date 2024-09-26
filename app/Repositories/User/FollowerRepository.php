@@ -48,8 +48,8 @@ class FollowerRepository
      */
     public function updateFollower($id, array $data)
     {
-        // Find the follower by user ID
-        $follower = $this->findFollowerByUserId($id);
+        // Find the follower by ID
+        $follower = $this->follower->find($id);
         if ($follower) {
             // If the follower exists, update it with the provided data
             $follower->update($data);
@@ -66,8 +66,8 @@ class FollowerRepository
      */
     public function deleteFollower($id)
     {
-        // Find the follower by user ID
-        $follower = $this->findFollowerByUserId($id);
+        // Find the follower by ID
+        $follower = $this->follower->find($id);
         if ($follower) {
             // If found, delete the follower and return true
             return $follower->delete();

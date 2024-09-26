@@ -102,7 +102,7 @@ class FollowerController extends Controller
      */
     public function destroy($id): JsonResponse
     {
-        // Attempt to delete the follower by UserId ID
+        // Attempt to delete the follower by ID
         $deleted = $this->followerService->deleteFollower($id);
 
         // Check if the follower is not found or could not be deleted

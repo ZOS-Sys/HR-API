@@ -48,7 +48,7 @@ class FollowerService
      */
     public function updateFollower($id, array $data)
     {
-        // Update the follower by User ID through the repository
+        // Update the follower by ID through the repository
         return $this->followerRepository->updateFollower($id, $data);
     }
 
@@ -60,7 +60,7 @@ class FollowerService
      */
     public function deleteFollower($id)
     {
-        // Delete the follower by User ID through the repository
+        // Delete the follower by ID through the repository
         return $this->followerRepository->deleteFollower($id);
     }
 }
