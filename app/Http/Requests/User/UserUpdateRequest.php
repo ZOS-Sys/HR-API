@@ -26,6 +26,7 @@ class UserUpdateRequest extends FormRequest
             'marital_status' => 'nullable|in:0,1,2,3',
             'type' => 'nullable|in:1,2',
             'gender' => 'nullable|in:0,1',
+
         ];
     }
 
