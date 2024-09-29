@@ -79,6 +79,22 @@ class UserService
     }
 
     /*
+     * Update user contacts
+     */
+    public function updateUserContacts($id, array $data)
+    {
+        return $this->userRepository->updateUserContacts($id,$data);
+    }
+
+    /*
+     * Update user image
+     */
+    public function updateUserImage($id, array $data)
+    {
+        return $this->userRepository->updateUserImage($id,$data);
+    }
+
+    /*
      *  Delete a user
      */
     public function deleteUser($id)

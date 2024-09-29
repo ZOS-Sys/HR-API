@@ -25,7 +25,7 @@ class EmergencyResource extends JsonResource
             'last_name_ar' => $this->getTranslation('last_name', 'ar'),
             'phone_one' => $this->phone_one,
             'phone_two' => $this->phone_two,
-            'relationship' => $this->relationship == 0 ? 'father' : ($this->relationship == 1 ? 'mother' : ($this->relationship == 2 ? 'sister' : ($this->relationship == 3 ? 'brother' : 'other'))),
+            'relationship' => $this->relationship,
             'created_at' => $this->created_at->format('Y-m-d H:i:s'),
             'updated_at' => $this->updated_at->format('Y-m-d H:i:s'),
         ];

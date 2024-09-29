@@ -40,6 +40,8 @@ Route::group([
         Route::get('users-level-one-and-two',[UserController::class,'levelOneAndTwo']);
         Route::get('users/{user_id}/subordinates',[UserController::class,'subordinates']);
         Route::post('users/{user_id}/subordinates',[UserController::class,'addSubordinate']);
+        Route::put('users/{user_id}/contacts',[UserController::class,'contacts']);
+        Route::put('users/{user_id}/image',[UserController::class,'updateUserImage']);
         Route::apiResource('user-identities', UserIdentityController::class);
         Route::apiResource('user-jobs', UserJobController::class);
         Route::apiResource('user-contracts', UserContractController::class);

@@ -24,7 +24,7 @@ class UserJobStoreRequest extends FormRequest
     {
         return [
             'user_id'=>['required' ,'exists:users,id',Rule::unique('user_jobs')->whereNull('deleted_at')],
-            'job_num' => 'required|numeric|digits_between:1,8',
+            'job_num' => 'required|numeric|digits_between:1,8|unique:user_jobs,job_num',
             'joining_date' => 'nullable|date',
             'job_title' => 'nullable|string|max:125',
             'branch_id' => 'nullable|exists:branches,id',

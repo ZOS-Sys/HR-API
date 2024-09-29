@@ -11,7 +11,7 @@ class UserIdentityResource extends JsonResource
         return [
             'id' => $this->id,
             'user_id' => $this->user_id,
-            'identity_type' => $this->identity_type == 0 ? 'national' : 'residence',
+            'identity_type' => $this->identity_type,
             'identity_num' => $this->identity_num,
             'identity_start' => $this->identity_start,
             'identity_end' => $this->identity_end,

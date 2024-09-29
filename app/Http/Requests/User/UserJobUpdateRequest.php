@@ -22,7 +22,7 @@ class UserJobUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'job_num' => 'required|numeric|digits_between:1,8',
+            'job_num' => 'required|numeric|digits_between:1,8|unique:user_jobs,job_num,' . $this->route('user-job'),
             'joining_date' => 'nullable|date',
             'job_title' => 'nullable|string|max:125',
             'branch_id' => 'nullable|exists:branches,id',

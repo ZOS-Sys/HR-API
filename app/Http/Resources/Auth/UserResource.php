@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Auth;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Storage;
 
 class UserResource extends JsonResource
 {
@@ -27,8 +28,9 @@ class UserResource extends JsonResource
             'nationality' => $this->nationality,
             'date_of_birth' => $this->date_of_birth,
             'marital_status' => $this->marital_status,
+            'image' => $this->image ? Storage::disk('public')->url($this->image) : null,
             'type' => $this->type,
-            'gender' => $this->gender == 1 ? 'male' : ($this->gender == 2 ? 'female' : NULL),
+            'gender' => $this->gender,
             'branch' => Request()->header('Accept-language') == 'ar' ?  $this->userJob?->branch?->getTranslation('name', 'ar') : $this->userJob?->branch?->name,
             'job_title' => $this->userJob?->job_title,
             'created_at' => $this->created_at->format('Y-m-d H:i:s'),

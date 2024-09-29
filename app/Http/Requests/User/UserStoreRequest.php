@@ -21,9 +21,7 @@ class UserStoreRequest extends FormRequest
             'first_name_ar' => 'nullable|string|max:255',
             'last_name_en' => 'required|string|max:255',
             'last_name_ar' => 'nullable|string|max:255',
-            'email' => 'required|email|unique:users,email',
-            'phone' => 'nullable|string|max:20',
-            'nationality' => 'nullable|string|max:100',
+            'nationality' => 'nullable|exists:countries,id',
             'date_of_birth' => 'nullable|date',
             'marital_status' => 'nullable|in:0,1,2,3',
             'type' => 'nullable|in:1,2',
@@ -40,6 +38,7 @@ class UserStoreRequest extends FormRequest
             'email.required' => 'Email is required.',
             'email.unique' => 'This email is already registered.',
             'password.required' => 'Password is required.',
+            'nationality.exists' => 'The selected country does not exist.',
         ];
     }
 }

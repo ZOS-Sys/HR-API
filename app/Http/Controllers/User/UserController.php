@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Helpers\HandleUpload;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Auth\UserResource;
 use App\Services\UserService;
-use App\Http\Requests\User\{UserStoreRequest,UserUpdateRequest,SubordinateRequest};
+use App\Http\Requests\User\{UserStoreRequest,UserUpdateRequest,SubordinateRequest,UpdateContactRequest,UpdateImageRequest};
 use App\Traits\TranslatableTrait;
 use Illuminate\Http\JsonResponse;
 use App\Traits\ApiResponse;
@@ -156,5 +157,45 @@ class UserController extends Controller
             return $this->errorResponse('User not found', 404);
         }
         return $this->successResponse(null, 'User deleted successfully', 200);
+    }
+
+    /*
+     * Update a user contacts
+     */
+    public function contacts(UpdateContactRequest $request, $id): JsonResponse
+    {
+        $data = $request->validated();
+
+        $user = $this->userService->updateUserContacts($id,$data);
+        if (!$user) {
+            return $this->errorResponse('User not found', 404);
+        }
+        return $this->successResponse(new UserResource($user), 'User contacts updated successfully');
+    }
+
+    /*
+     * Update a user image
+     */
+    public function updateUserImage(UpdateImageRequest $request, $id): JsonResponse
+    {
+        $data = $request->validated();
+
+        // Get the existing image from User to get the old file path
+        $existingImage = $this->userService->getUserById($id);
+
+        // Check if a new file has been uploaded in the request
+        if ($request->hasFile('image')) {
+            // If a new file is uploaded, handle the file upload
+            $data['image'] = HandleUpload::uploadFile($request->file('image'), 'users');
+        } else {
+            // If no new file is uploaded, retain the old file path
+            $data['image'] = $existingImage->image;
+        }
+
+        $user = $this->userService->updateUserImage($id,$data);
+        if (!$user) {
+            return $this->errorResponse('User not found', 404);
+        }
+        return $this->successResponse(new UserResource($user), 'User image updated successfully');
     }
 }

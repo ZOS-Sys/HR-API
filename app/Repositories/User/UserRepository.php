@@ -89,6 +89,26 @@ class UserRepository
         return $user;
     }
 
+    // Update user contacts
+    public function updateUserContacts($id,array $data)
+    {
+        $user = $this->findUserById($id);
+        if ($user) {
+            $user->update($data);
+        }
+        return $user;
+    }
+
+    // Update user image
+    public function updateUserImage($id,array $data)
+    {
+        $user = $this->findUserById($id);
+        if ($user) {
+            $user->update($data);
+        }
+        return $user;
+    }
+
     // Delete a user
     public function deleteUser($id)
     {
