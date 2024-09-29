@@ -16,11 +16,11 @@ class UserContractUpdateRequest extends FormRequest
     {
         return [
             'user_id' => 'nullable|exists:users,id',
-            'name_en' => 'nullable|string|max:255',
-            'name_ar' => 'nullable|string|max:255',
+            'name_en' => 'nullable|string|max:255|regex:/^[a-zA-Z\s]+$/',
+            'name_ar' => 'nullable|string|max:255|regex:/^[\p{Arabic}\s]+$/u',
             'file' => 'nullable|mimes:jpg,jpeg,png,pdf,doc,docx',
-            'joining_date' => 'nullable|date',
-            'period' => 'nullable|string',
+            'joining_date' => 'nullable|date|before_or_equal:today',
+            'period' => 'nullable|integer|min:1',
         ];
     }
 
@@ -29,10 +29,12 @@ class UserContractUpdateRequest extends FormRequest
     {
         return [
             'user_id.exists' => 'User ID must be a valid user.',
-            'name_en' => 'English Name must be a valid String.',
-            'name_ar' => 'Arabic Name must be a valid String.',
+            'name_en.regex' => 'English Name may only contain letters and spaces.',
+            'name_ar.regex' => 'Arabic Name may only contain Arabic letters and spaces.',
             'joining_date.date' => 'Joining date must be a valid date.',
-            'period.string' => 'Contract period must be a string.',
+            'joining_date.before_or_equal' => 'Joining date must not be a future date.',
+            'period.integer' => 'Contract period must be a valid number.',
+            'file.mimes' => 'The file must be an image (jpg, jpeg, png) or a document (pdf, doc, docx).',
         ];
     }
 }
