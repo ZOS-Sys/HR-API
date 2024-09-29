@@ -17,10 +17,10 @@ class UserUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'first_name_en' => 'sometimes|string|max:255',
-            'first_name_ar' => 'nullable|string|max:255',
-            'last_name_en' => 'sometimes|string|max:255',
-            'last_name_ar' => 'nullable|string|max:255',
+            'first_name_en' => 'sometimes|string|max:255|regex:/^[a-zA-Z\s]+$/',
+            'first_name_ar' => 'nullable|string|max:255|regex:/^[\p{Arabic}\s]+$/u',
+            'last_name_en' => 'sometimes|string|max:255|regex:/^[a-zA-Z\s]+$/',
+            'last_name_ar' => 'nullable|string|max:255|regex:/^[\p{Arabic}\s]+$/u',
             'nationality' => 'nullable|exists:countries,id',
             'date_of_birth' => 'nullable|date',
             'marital_status' => 'nullable|in:0,1,2,3',
@@ -32,9 +32,10 @@ class UserUpdateRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'first_name_en.required' => 'First Name (English) is required.',
-            'last_name_en.required' => 'Last Name (English) is required.',
-            'email.unique' => 'This email is already registered.',
+            'first_name_en.regex' => 'First Name (English) may only contain letters and spaces.',
+            'first_name_ar.regex' => 'First Name (Arabic) may only contain Arabic letters and spaces.',
+            'last_name_en.regex' => 'Last Name (English) may only contain letters and spaces.',
+            'last_name_ar.regex' => 'Last Name (Arabic) may only contain Arabic letters and spaces.',
             'nationality.exists' => 'The selected country does not exist.',
         ];
     }
