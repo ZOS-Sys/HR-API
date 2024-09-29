@@ -82,32 +82,30 @@ class UserJobController extends Controller
      */
     public function update(UserJobUpdateRequest $request, $id): JsonResponse
     {
-        $data = $request->validated();
+        // Get only the fields that were sent
+        $data = $request->all();
 
-        // check for direct manager
-        $data['direct_manager'] = $data['job_level'] == 1 ? NULL : $data['direct_manager'];
-        if($data['direct_manager'])
-        {
-            $level = $data['job_level'] == 2 ? [1] : [1,2];
-            $managerLevel = UserJob::where('user_id',$data['direct_manager'])->first()?->job_level;
-            if(!in_array($managerLevel,$level))
-            {
-                return $this->errorResponse('direct manager not found', 404);
+        // If job_level is provided, apply the logic related to it
+        if (isset($data['job_level'])) {
+            $data['direct_manager'] = $data['job_level'] == 1 ? NULL : $data['direct_manager'];
+            if ($data['direct_manager']) {
+                $level = $data['job_level'] == 2 ? [1] : [1, 2];
+                $managerLevel = UserJob::where('user_id', $data['direct_manager'])->first()?->job_level;
+                if (!in_array($managerLevel, $level)) {
+                    return $this->errorResponse('direct manager not found', 404);
+                }
             }
         }
-        
-        // Update the user job based on ID
-        $userJob = $this->userJobService->updateUserJob($id, $data);
 
-        // Check if the user job is not found
+        // Update only the fields that were sent (skip null or empty ones)
+        $userJob = $this->userJobService->updateUserJob($id, array_filter($data));
+
         if (!$userJob) {
             return $this->errorResponse('User job not found', 404);
         }
 
-        // Return success response with the updated user job
         return $this->successResponse(new UserJobResource($userJob), 'User job updated successfully');
     }
-
     /**
      * Delete a user job
      *
