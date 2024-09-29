@@ -33,6 +33,7 @@ class UserResource extends JsonResource
             'gender' => $this->gender,
             'branch' => Request()->header('Accept-language') == 'ar' ?  $this->userJob?->branch?->getTranslation('name', 'ar') : $this->userJob?->branch?->name,
             'job_title' => $this->userJob?->job_title,
+            'job_num' => $this->userJob?->job_num,
             'created_at' => $this->created_at->format('Y-m-d H:i:s'),
             'updated_at' => $this->updated_at->format('Y-m-d H:i:s'),
         ];
