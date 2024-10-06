@@ -26,4 +26,9 @@ class UserJob extends Model
     {
         return $this->belongsTo(City::class);
     }
+
+    public function jobTitle()
+    {
+        return $this->belongsTo(JobTitle::class);
+    }
 }

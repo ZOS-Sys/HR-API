@@ -29,10 +29,22 @@ class UserResource extends JsonResource
             'date_of_birth' => $this->date_of_birth,
             'marital_status' => $this->marital_status,
             'image' => $this->image ? Storage::disk('public')->url($this->image) : null,
-            'type' => $this->type,
-            'gender' => $this->gender,
-            'branch' => Request()->header('Accept-language') == 'ar' ?  $this->userJob?->branch?->getTranslation('name', 'ar') : $this->userJob?->branch?->name,
-            'job_title' => $this->userJob?->job_title,
+            'type' => [
+                'id' => $this->type,
+                'type' => $this->type == 0 ? 'Admin' : ($this->type == 1 ? 'User' : NULL),
+            ],
+            'gender' => [
+                'id' => $this->gender,
+                'gender' => $this->gender == 1 ? 'male' : ($this->gender == 2 ? 'female' : NULL),
+            ],
+            'branch' => [
+                'id' => $this->userJob?->branch?->id,
+                'name' => Request()->header('Accept-language') == 'ar' ?  $this->userJob?->branch?->getTranslation('name', 'ar') : $this->userJob?->branch?->name,
+            ],
+            'job_title' => [
+                'id' => $this->userJob?->jobTitle?->id,
+                'title' => Request()->header('Accept-language') == 'ar' ?  $this->userJob?->jobTitle?->getTranslation('title', 'ar') : $this->userJob?->jobTitle?->title,
+            ],
             'job_num' => $this->userJob?->job_num,
             'created_at' => $this->created_at->format('Y-m-d H:i:s'),
             'updated_at' => $this->updated_at->format('Y-m-d H:i:s'),

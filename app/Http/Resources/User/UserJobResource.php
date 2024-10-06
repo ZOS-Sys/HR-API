@@ -19,7 +19,10 @@ class UserJobResource extends JsonResource
             'user_id' => $this->user_id,
             'job_num' => $this->job_num,
             'joining_date' => $this->joining_date,
-            'job_title' => $this->job_title,
+            'job_title' => [
+                'id' => $this->jobTitle?->id,
+                'title' => Request()->header('Accept-language') == 'ar' ?  $this->jobTitle?->getTranslation('title', 'ar') : $this->jobTitle?->title,
+            ],
             'cost_center' => $this->cost_center,
             'branch' => $this->branch?->id,
             'city' => $this->city?->id,

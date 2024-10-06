@@ -55,10 +55,10 @@ class UserJobController extends Controller
         $data = $request->validated();
 
         // check for direct manager
-        $data['direct_manager'] = $data['job_level'] == 1 ? NULL : $data['direct_manager'];
+        $data['direct_manager'] = $request->job_level == 1 ? NULL : $data['direct_manager'];
         if($data['direct_manager'])
         {
-            $level = $data['job_level'] == 2 ? [1] : [1,2];
+            $level = $request->job_level == 2 ? [1] : [1,2];
             $managerLevel = UserJob::where('user_id',$data['direct_manager'])->first()?->job_level;
             if(!in_array($managerLevel,$level))
             {
@@ -86,10 +86,10 @@ class UserJobController extends Controller
         $data = $request->all();
 
         // If job_level is provided, apply the logic related to it
-        if (isset($data['job_level'])) {
-            $data['direct_manager'] = $data['job_level'] == 1 ? NULL : $data['direct_manager'];
+        if (isset($request->job_level)) {
+            $data['direct_manager'] = $request->job_level == 1 ? NULL : $data['direct_manager'];
             if ($data['direct_manager']) {
-                $level = $data['job_level'] == 2 ? [1] : [1, 2];
+                $level = $request->job_level == 2 ? [1] : [1, 2];
                 $managerLevel = UserJob::where('user_id', $data['direct_manager'])->first()?->job_level;
                 if (!in_array($managerLevel, $level)) {
                     return $this->errorResponse('direct manager not found', 404);
