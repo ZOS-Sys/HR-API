@@ -79,6 +79,5 @@ Route::group([
         Route::apiResource('bank-accounts', BankAccountController::class);
         // job-title
         Route::apiResource('job-titles', JobTitleController::class);
-
-
+        Route::get('job-titles/branches/{branch_id}',[JobTitleController::class,'jobTitlesByBranch']);
     });

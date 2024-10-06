@@ -31,6 +31,18 @@ class JobTitleRepository
     }
 
     /**
+     * Get branch job titles with pagination
+     *
+     * @param int $branch_id
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
+    public function jobTitlesByBranch($branch_id,$perPage)
+    {
+        // Get branch job titles
+        return $this->jobTitle->where('branch_id',$branch_id)->paginate($perPage);
+    }
+
+    /**
      * Find a job title by ID and load the branch relationship.
      *
      * @param int $id

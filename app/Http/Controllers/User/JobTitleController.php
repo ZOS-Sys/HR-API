@@ -56,6 +56,19 @@ class JobTitleController extends Controller
     }
 
     /**
+     * Get job titles by branch_id.
+     *
+     * @param int $branch_id
+     * @return JsonResponse
+     */
+    public function jobTitlesByBranch($branch_id): JsonResponse
+    {
+        $perPage = request()->get('per_page', 10);
+        $jobTitles = $this->jobTitleService->jobTitlesByBranch($branch_id,$perPage);
+        return $this->successResponse(JobTitleResource::collection($jobTitles), 'Job Titles retrieved successfully');
+    }
+
+    /**
      * Create a new job title.
      *
      * @param JobTitleStoreRequest $request
