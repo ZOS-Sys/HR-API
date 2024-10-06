@@ -101,7 +101,7 @@ return [
     |
     */
 
-    'ttl' => env('JWT_TTL', 240),
+    'ttl' => (int) env('JWT_TTL', 8760) * 60,
 
     /*
     |--------------------------------------------------------------------------
@@ -220,9 +220,9 @@ return [
     'blacklist_enabled' => env('JWT_BLACKLIST_ENABLED', true),
 
     /*
-    | -------------------------------------------------------------------------
+    |--------------------------------------------------------------------------
     | Blacklist Grace Period
-    | -------------------------------------------------------------------------
+    |--------------------------------------------------------------------------
     |
     | When multiple concurrent requests are made with the same JWT,
     | it is possible that some of them fail, due to token regeneration

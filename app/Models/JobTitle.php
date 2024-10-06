@@ -2,14 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class JobTitle extends Model
 {
-    use HasFactory, HasTranslations, SoftDeletes;
+    use  HasTranslations, SoftDeletes;
 
     protected $guarded = ['id'];
 
@@ -17,6 +16,6 @@ class JobTitle extends Model
 
     public function branch()
     {
-        return $this->belongsTo(Branch::class);
+        return $this->belongsTo(Branch::class,'branch_id');
     }
 }

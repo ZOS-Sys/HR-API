@@ -5,11 +5,16 @@ use App\Http\Controllers\User\{AllowanceController,
     BankAccountController,
     FollowerController,
     FollowerIdentityController,
+    JobTitleController,
     SalaryController,
     UserContractController,
     UserController,
     UserIdentityController,
-    UserJobController,UserEmergencyController,UserDocumentController,UserFileController,UserNoteController};
+    UserJobController,
+    UserEmergencyController,
+    UserDocumentController,
+    UserFileController,
+    UserNoteController};
 use App\Http\Controllers\Shared\{CompanyController,
     BranchController,
     CountryController,
@@ -70,5 +75,8 @@ Route::group([
         Route::apiResource('salaries', SalaryController::class);
         // bank-accounts
         Route::apiResource('bank-accounts', BankAccountController::class);
+        // job-title
+        Route::apiResource('job-titles', JobTitleController::class);
+
 
     });
