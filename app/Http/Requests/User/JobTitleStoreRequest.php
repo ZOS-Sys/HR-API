@@ -4,7 +4,8 @@ namespace App\Http\Requests\User;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class JobTitleStoreRequest extends FormRequest
+class
+JobTitleStoreRequest extends FormRequest
 {
     public function authorize()
     {
