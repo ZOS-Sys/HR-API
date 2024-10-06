@@ -15,8 +15,16 @@ class FollowerIdentityStoreRequest extends FormRequest
     {
         return [
             'follower_id' => 'required|exists:followers,id',
-            'identity_type' => 'nullable|in:0,1',
-            'identity_num' => 'nullable|string|max:255',
+            'identity_type' => 'required|in:0,1',
+            'identity_num' => ['required','digits:10',
+                function ($attribute, $value, $fail) {
+                    if (request()->identity_type == 0 && !preg_match('/^10/', $value)) {
+                        $fail('The identity num must start with 10.');
+                    }elseif(request()->identity_type == 1 && !preg_match('/^2/', $value)){
+                        $fail('The identity num must start with 2.');
+                    }
+                },
+            ],
             'identity_start' => 'nullable|date',
             'identity_end' => 'nullable|date',
             'passport_num' => 'nullable|string|max:255',
@@ -31,8 +39,9 @@ class FollowerIdentityStoreRequest extends FormRequest
         return [
             'follower_id.required' => 'Follower ID is required.',
             'follower_id.exists' => 'Follower ID must be a valid follower.',
+            'identity_type.required' => 'The identity type field is required.',
             'identity_type.in' => 'Identity type must be either national (0) or residence (1).',
-            'identity_num.string' => 'Identity number must be a valid string.',
+            'identity_num.required' => 'The identity num field is required.',
             'passport_num.string' => 'Passport number must be a valid string.',
             'identity_start.date' => 'Identity start date must be a valid date.',
             'identity_end.date' => 'Identity end date must be a valid date.',

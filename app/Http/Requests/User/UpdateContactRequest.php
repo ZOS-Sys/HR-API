@@ -24,7 +24,8 @@ class UpdateContactRequest extends FormRequest
         $id = request()->segment(3);
         return [
             'email' => "required|email|unique:users,email,{$id},id,deleted_at,NULL",
-            'phone' => "required|numeric|unique:users,phone,{$id},id,deleted_at,NULL"
+            'phone' => "required|numeric|unique:users,phone,{$id},id,deleted_at,NULL",
+            'another_phone' => "nullable|numeric|unique:users,phone,{$id},id,deleted_at,NULL",
         ];
     }
 }
