@@ -66,6 +66,10 @@ class UserJobController extends Controller
             }
         }
 
+        $last_num = UserJob::latest()->first()?->job_num ?? 0;
+        $job_num = strlen($last_num) > 6 ? 1 : (int)$last_num + 1;
+        $data['job_num'] =  str_pad($job_num, 6, '0', STR_PAD_LEFT);
+
         // Create a new user job
         $userJob = $this->userJobService->createUserJob($data);
 
@@ -96,6 +100,10 @@ class UserJobController extends Controller
                 }
             }
         }
+
+        $last_num = UserJob::where('user_id',$id)->first()?->job_num ?? 0;
+        $job_num = strlen($last_num) > 6 ? 1 :  ($last_num == 0 ? (int)$last_num + 1 : $last_num);
+        $data['job_num'] =  str_pad($job_num, 6, '0', STR_PAD_LEFT);
 
         // Update only the fields that were sent (skip null or empty ones)
         $userJob = $this->userJobService->updateUserJob($id, array_filter($data));

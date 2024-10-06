@@ -27,7 +27,7 @@ class UpdateDocumentRequest extends FormRequest
             'document_num' => 'required|numeric|digits_between:1,8',
             'start_date' => 'required|date',
             'end_date' => 'required|date',
-            'file' => 'nullable|mimes:jpeg,png,jpg,gif,svg|max:102400',
+            'file' => 'required|mimes:jpeg,png,jpg,gif,svg|max:102400',
         ];
     }
 

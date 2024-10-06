@@ -22,10 +22,18 @@ class UserJobResource extends JsonResource
             'job_title' => [
                 'id' => $this->jobTitle?->id,
                 'title' => Request()->header('Accept-language') == 'ar' ?  $this->jobTitle?->getTranslation('title', 'ar') : $this->jobTitle?->title,
+                'job_rank' => $this->jobTitle?->job_rank,
+                'job_level' => $this->jobTitle?->job_level,
             ],
             'cost_center' => $this->cost_center,
-            'branch' => $this->branch?->id,
-            'city' => $this->city?->id,
+            'branch' => [
+                'id' => $this->branch?->id,
+                'name' => Request()->header('Accept-language') == 'ar' ?  $this->branch?->getTranslation('name', 'ar') : $this->branch?->name,
+            ],
+            'city' => [
+                'id' => $this->city?->id,
+                'title' => Request()->header('Accept-language') == 'ar' ?  $this->city?->getTranslation('title', 'ar') : $this->city?->title,
+            ],
             'working_period' => $this->working_period,
             'created_at' => $this->created_at->format('Y-m-d H:i:s'),
             'updated_at' => $this->updated_at->format('Y-m-d H:i:s'),
