@@ -25,7 +25,9 @@ class UserRepository
     public function levelOne($perPage)
     {
         return $this->user->whereHas('userJob',function($job){
-            $job->where('job_level',1);
+            $job->whereHas('jobTitle',function($title){
+                $title->where('job_level',1);
+            });
         })->paginate($perPage);
     }
 
@@ -33,7 +35,29 @@ class UserRepository
     public function levelOneAndTwo($perPage)
     {
         return $this->user->whereHas('userJob',function($job){
-            $job->where('job_level',1)->orWhere('job_level',2);
+            $job->whereHas('jobTitle',function($title){
+                $title->where('job_level',1)->orWhere('job_level',2);
+            });
+        })->paginate($perPage);
+    }
+
+    // Get users where level equal three
+    public function levelThree($perPage)
+    {
+        return $this->user->whereHas('userJob',function($job){
+            $job->whereHas('jobTitle',function($title){
+                $title->where('job_level',3);
+            });
+        })->paginate($perPage);
+    }
+
+    // Get users where level equal three or two
+    public function levelThreeAndTwo($perPage)
+    {
+        return $this->user->whereHas('userJob',function($job){
+            $job->whereHas('jobTitle',function($title){
+                $title->where('job_level',2)->orWhere('job_level',3);
+            });
         })->paginate($perPage);
     }
 

@@ -31,11 +31,11 @@ class UserResource extends JsonResource
             'image' => $this->image ? Storage::disk('public')->url($this->image) : null,
             'type' => [
                 'id' => $this->type,
-                'type' => $this->type == 0 ? 'Admin' : ($this->type == 1 ? 'User' : NULL),
+                'type' => $this->type == 0 ? __('Admin',[],Request()->header('Accept-language')) : ($this->type == 1 ? __('User',[],Request()->header('Accept-language')) : NULL),
             ],
             'gender' => [
                 'id' => $this->gender,
-                'gender' => $this->gender == 1 ? 'male' : ($this->gender == 2 ? 'female' : NULL),
+                'gender' => $this->gender == 1 ? __('Male',[],Request()->header('Accept-language')) : ($this->gender == 2 ? __('Female',[],Request()->header('Accept-language')) : NULL),
             ],
             'branch' => [
                 'id' => $this->userJob?->branch?->id,

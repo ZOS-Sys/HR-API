@@ -43,6 +43,8 @@ Route::group([
         Route::apiResource('users', UserController::class);
         Route::get('users-level-one',[UserController::class,'levelOne']);
         Route::get('users-level-one-and-two',[UserController::class,'levelOneAndTwo']);
+        Route::get('users-level-three',[UserController::class,'levelThree']);
+        Route::get('users-level-three-and-two',[UserController::class,'levelThreeAndTwo']);
         Route::get('users/{user_id}/subordinates',[UserController::class,'subordinates']);
         Route::post('users/{user_id}/subordinates',[UserController::class,'addSubordinate']);
         Route::put('users/{user_id}/contacts',[UserController::class,'contacts']);

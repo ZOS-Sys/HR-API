@@ -53,7 +53,7 @@ class UserController extends Controller
     }
 
     /*
-     * Get users where level equal one
+     * Get users where level equal one or two
      */
     public function levelOneAndTwo(): JsonResponse
     {
@@ -64,6 +64,35 @@ class UserController extends Controller
         $users = $this->userService->levelOneAndTwo($perPage);
 
         return $this->successResponse(UserResource::collection($users), 'Users where Level equal one or two retrieved successfully');
+    }
+
+    /*
+     * Get users where level equal three
+     */
+    public function levelThree(): JsonResponse
+    {
+        // Define the number of items per page
+        $perPage = request()->get('per_page', 10); // Default value is 10
+
+        // Retrieve users with pagination
+        $users = $this->userService->levelThree($perPage);
+
+        return $this->successResponse(UserResource::collection($users), 'Users where Level equal three retrieved successfully');
+    }
+
+
+    /*
+     * Get users where level equal three or two 
+     */
+    public function levelThreeAndTwo(): JsonResponse
+    {
+        // Define the number of items per page
+        $perPage = request()->get('per_page', 10); // Default value is 10
+
+        // Retrieve users with pagination
+        $users = $this->userService->levelThreeAndTwo($perPage);
+
+        return $this->successResponse(UserResource::collection($users), 'Users where Level equal three or two retrieved successfully');
     }
 
     /*

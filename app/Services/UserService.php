@@ -38,6 +38,22 @@ class UserService
         return $this->userRepository->levelOneAndTwo($perPage);
     }
 
+    /*
+     * Get users where level equal three
+     */
+    public function levelThree($perPage)
+    {
+        return $this->userRepository->levelThree($perPage);
+    }
+
+    /*
+     * Get users where level equal three or two
+     */
+    public function levelThreeAndTwo($perPage)
+    {
+        return $this->userRepository->levelThreeAndTwo($perPage);
+    }
+
      /*
      * Get subordinates by userId
      */
