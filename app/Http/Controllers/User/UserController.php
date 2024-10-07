@@ -28,11 +28,19 @@ class UserController extends Controller
      */
     public function index(): JsonResponse
     {
-        // Define the number of items per page
-        $perPage = request()->get('per_page', 10); // Default value is 10
+        $perPage = request()->get('per_page', 10);
+        $searchTerm = request()->get('search', null); // Get the search term
+        // get items filter
+        $joiningStartDate = request()->get('joining_start_date', null);
+        $joiningEndDate = request()->get('joining_end_date', null);
+        $maritalStatus = request()->get('marital_status', null);
+        $gender = request()->get('gender', null);
+        $jobRank = request()->get('job_rank', null);
+        $jobLevel = request()->get('job_level', null);
+        $branchId = request()->get('branch_id', null);
 
-        // Retrieve users with pagination
-        $users = $this->userService->getAllUsers($perPage);
+        // Retrieve users with pagination and search parameters and filter
+        $users = $this->userService->getAllUsers($perPage, $searchTerm, $joiningStartDate, $joiningEndDate, $maritalStatus, $gender,$jobRank,$jobLevel,$branchId);
 
         return $this->successResponse(UserResource::collection($users), 'Users retrieved successfully');
     }
@@ -82,7 +90,7 @@ class UserController extends Controller
 
 
     /*
-     * Get users where level equal three or two 
+     * Get users where level equal three or two
      */
     public function levelThreeAndTwo(): JsonResponse
     {

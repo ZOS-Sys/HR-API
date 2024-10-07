@@ -15,12 +15,62 @@ class UserRepository
     }
 
     // Get all users
-    public function getAllUsers($perPage)
+    public function getAllUsers($perPage, $searchTerm = null, $joiningStartDate = null, $joiningEndDate = null, $maritalStatus = null, $gender = null,$jobRank = null, $jobLevel = null,$branchId=null)
     {
-        return $this->user->paginate($perPage);
 
+        $query = User::query()
+            ->with('userJob', 'userIdentity');
+
+        // Apply the search scope if a search term is provided
+        if ($searchTerm) {
+            $query->search($searchTerm, $joiningStartDate, $joiningEndDate, $maritalStatus, $gender);
+        }
+
+        // Apply filters directly in the repository
+        if ($maritalStatus !== null) {
+            $query->where('marital_status', $maritalStatus);
+        }
+
+        if ($gender !== null) {
+            $query->where('gender', $gender);
+        }
+
+        // Filtering by joining date
+        if ($joiningStartDate) {
+            $query->whereHas('userJob', function ($q) use ($joiningStartDate) {
+                $q->where('joining_date', '>=', $joiningStartDate);
+            });
+        }
+        if ($joiningEndDate) {
+            $query->whereHas('userJob', function ($q) use ($joiningEndDate) {
+                $q->where('joining_date', '<=', $joiningEndDate);
+            });
+        }
+
+        // Filtering by job rank from jobTitle
+        if ($jobRank !== null) {
+            $query->whereHas('userJob.jobTitle', function ($q) use ($jobRank) {
+                $q->where('job_rank', $jobRank);
+            });
+        }
+
+        // Filtering by job level from jobTitle
+        if ($jobLevel !== null) {
+            $query->whereHas('userJob.jobTitle', function ($q) use ($jobLevel) {
+                $q->where('job_level', $jobLevel);
+            });
+        }
+
+        // Filtering by branch ID
+        if ($branchId !== null) {
+            $query->WhereHas('userJob', function ($query) use ($branchId) {
+                $query->where('branch_id', $branchId);
+            });
+        }
+
+
+        return $query->paginate($perPage);
     }
-
     // Get users where level equal one
     public function levelOne($perPage)
     {

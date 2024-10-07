@@ -17,9 +17,9 @@ class UserService
     /*
      * Get all users
      */
-    public function getAllUsers($perPage)
+    public function getAllUsers($perPage, $searchTerm, $joiningStartDate, $joiningEndDate, $maritalStatus, $gender,$jobRank,$jobLevel,$branchId)
     {
-        return $this->userRepository->getAllUsers($perPage);
+        return $this->userRepository->getAllUsers($perPage, $searchTerm, $joiningStartDate, $joiningEndDate, $maritalStatus, $gender,$jobRank,$jobLevel,$branchId);
     }
 
     /*

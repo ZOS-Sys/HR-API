@@ -2,6 +2,7 @@
 
 namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -53,10 +54,56 @@ class User extends Authenticatable implements JWTSubject
     {
         return [];
     }
-
+  // User job Relation
     public function userJob()
     {
         return $this->hasOne(UserJob::class);
     }
+    // User job Relation
+    public function userIdentity()
+    {
+        return $this->hasOne(UserIdentity::class);
+    }
+    // User job Relation
+    public function userContract()
+    {
+        return $this->hasOne(UserContract::class);
+    }
 
+    // Handle Search for User
+    public function scopeSearch(Builder $query, $searchTerm = null, $startDate = null, $endDate = null, $maritalStatus = null, $gender = null)
+    {
+        return $query->where(function ($q) use ($searchTerm, $startDate, $endDate, $maritalStatus, $gender) {
+            // searching by name fields
+            if ($searchTerm) {
+                $q->where('first_name->en', 'LIKE', '%' . $searchTerm . '%')
+                    ->orWhere('first_name->ar', 'LIKE', '%' . $searchTerm . '%')
+                    ->orWhere('middle_name->en', 'LIKE', '%' . $searchTerm . '%')
+                    ->orWhere('middle_name->ar', 'LIKE', '%' . $searchTerm . '%')
+                    ->orWhere('last_name->en', 'LIKE', '%' . $searchTerm . '%')
+                    ->orWhere('last_name->ar', 'LIKE', '%' . $searchTerm . '%');
+            }
+
+            // Filtering by UserJob and relation of it
+            if ($searchTerm) {
+                $q->orWhereHas('userJob', function ($query) use ($searchTerm) {
+                    $query->where('job_num', 'LIKE', '%' . $searchTerm . '%')
+                        ->orWhereHas('jobTitle', function ($query) use ($searchTerm) {
+                            $query->where('title->en', 'LIKE', '%' . $searchTerm . '%')
+                                ->orWhere('title->ar', 'LIKE', '%' . $searchTerm . '%');
+                        })
+                        ->orWhereHas('city', function ($query) use ($searchTerm) {
+                            $query->where('title->en', 'LIKE', '%' . $searchTerm . '%')
+                                ->orWhere('title->ar', 'LIKE', '%' . $searchTerm . '%');
+                        });
+                });
+            }
+            // Searching in identity number
+            if ($searchTerm) {
+                $q->orWhereHas('userIdentity', function ($q) use ($searchTerm) {
+                    $q->where('identity_num', 'LIKE', '%' . $searchTerm . '%');
+                });
+                }
+        });
+    }
 }
